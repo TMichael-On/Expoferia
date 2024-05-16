@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 
 import employeesRoutes from "../Rutas/employees.routes.js";
+import usuario_empresaRoutes from "../Rutas/usuario_empresa.routes.js";
 import indexRoutes from "../Rutas/index.routes.js";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 // Routes
 app.use("/", indexRoutes);
 app.use("/api", employeesRoutes);
+app.use("/usuario-empresa", usuario_empresaRoutes);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: "Not found" });
