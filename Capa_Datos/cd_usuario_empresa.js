@@ -12,7 +12,7 @@ class CD_UsuarioEmpresa {
       );
       rows = results[0];
       if (rows) {
-        message = "Correo ya existente";
+        message = "Correo "+data.correo+" ya existente";
       } else {
         const [result] = await pool.query(
           "INSERT INTO expo_usuario_empresa (usuario_nombre, usuario_apellido, usuario_correo, usuario_telefono, usuario_contrasena, usuario_fecha_registro) VALUES (?,?,?,?,?,current_timestamp())",
@@ -73,7 +73,6 @@ class CD_UsuarioEmpresa {
 
   //UPDATE
   async updateUsuarioEmpresa(id, data) {
-    let message = "";
     let sql = "UPDATE expo_usuario_empresa SET ";
     const params = [];
     const updates = [];

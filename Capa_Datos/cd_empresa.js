@@ -26,7 +26,8 @@ class CD_Empresa {
             data.correo,
             data.descripcion,
             data.historia,
-            data.usuario_id]
+            data.usuario_id
+          ]
         );
         rows = result;
         message = "success";
@@ -77,7 +78,6 @@ class CD_Empresa {
   
   //UPDATE
   async updateEmpresa(id, data) {
-    let message = "";
     let sql = "UPDATE expo_empresa SET ";
     const params = [];
     const updates = [];
