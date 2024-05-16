@@ -68,14 +68,12 @@ class CD_UsuarioEmpresa {
     }
     return { message, row };
   }
-  //UPDATE// Capa de Datos
+  //UPDATE
   async updateUsuarioEmpresa(id, data) {
     let message = "";
     let sql = "UPDATE expo_usuario_empresa SET ";
     const params = [];
     const updates = [];
-
-    // Condicionales para cada campo que puede ser actualizado
     if (data.nombre !== undefined) {
       updates.push("usuario_nombre = ?");
       params.push(data.nombre);
@@ -100,8 +98,6 @@ class CD_UsuarioEmpresa {
       updates.push("usuario_fecha_registro = ?");
       params.push(data.fecha);
     }
-
-    // Finalizar la construcción de la consulta SQL
     if (updates.length === 0) {
       return {
         message: "No se proporcionaron datos para actualizar.",
