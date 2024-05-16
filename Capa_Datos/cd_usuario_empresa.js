@@ -28,7 +28,7 @@ class CD_UsuarioEmpresa {
         message = "success";
       }
     } catch (error) {
-      message = "Algo salió mal en CD";
+      message = "Algo salió mal en CD: "+error.message;
       rows = [];
     }
     return { message, rows };
@@ -42,7 +42,7 @@ class CD_UsuarioEmpresa {
       [rows] = await pool.query("SELECT * FROM expo_usuario_empresa");
       message = "success";
     } catch (error) {
-      message = "Algo salió mal en CD";
+      message = "Algo salió mal en CD: "+error.message;
       rows = [];
     }
     return { message: message, rows: rows };
@@ -65,7 +65,7 @@ class CD_UsuarioEmpresa {
         row = {};
       }
     } catch (error) {
-      message = "Algo salió mal en CD";
+      message = "Algo salió mal en CD: "+error.message;
       row = {};
     }
     return { message, row };
@@ -142,7 +142,7 @@ class CD_UsuarioEmpresa {
         rows = {};
       }
     } catch (error) {
-      message = "Algo salió mal en CD";
+      message = "Algo salió mal en CD: "+error.message;
       rows = [];
     }
     return { message: message, rows: rows };

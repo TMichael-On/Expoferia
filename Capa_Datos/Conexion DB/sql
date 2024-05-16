@@ -1,0 +1,52 @@
+CREATE TABLE expo_usuario_empresa (
+  usuario_id int(11) PRIMARY KEY AUTO_INCREMENT,
+  usuario_nombre varchar(100) DEFAULT NULL,
+  usuario_apellido varchar(100) DEFAULT NULL,
+  usuario_correo varchar(255) DEFAULT NULL,
+  usuario_telefono varchar(30) DEFAULT NULL,
+  usuario_contrasena varchar(255) DEFAULT NULL,
+  usuario_fecha_registro timestamp NOT NULL DEFAULT current_timestamp()
+);
+
+CREATE TABLE expo_empresa (
+  empresa_id int(11) PRIMARY KEY AUTO_INCREMENT,
+  empresa_nombre varchar(255) DEFAULT NULL,
+  empresa_numero_ruc varchar(20) DEFAULT NULL,
+  empresa_rubro varchar(100) DEFAULT NULL,
+  empresa_direccion varchar(255) DEFAULT NULL,
+  empresa_telefono varchar(20) DEFAULT NULL,
+  empresa_correo varchar(255) DEFAULT NULL,
+  empresa_descripcion text DEFAULT NULL,
+  empresa_historia text DEFAULT NULL,
+  empresa_usuario_id int(11) NOT NULL,
+  FOREIGN KEY (empresa_usuario_id) REFERENCES latam_usuario_empresa(usuario_id)
+);
+
+CREATE TABLE expo_empresa_redes (
+  redes_id int(11) PRIMARY KEY AUTO_INCREMENT,
+  redes_nombre varchar(255) DEFAULT NULL,
+  redes_url varchar(500) DEFAULT NULL,
+  empresa_id int(11) NOT NULL,
+  FOREIGN KEY (empresa_id) REFERENCES expo_empresa(empresa_id)
+);
+
+CREATE TABLE expo_empresa_colaborador (
+  colaborador_id int(11) PRIMARY KEY AUTO_INCREMENT,
+  colaborador_nombre_completo varchar(255) DEFAULT NULL,
+  colaborador_telefono varchar(30) DEFAULT NULL,
+  colaborador_area varchar(50) DEFAULT NULL,
+  empresa_id int(11) NOT NULL,
+  FOREIGN KEY (empresa_id) REFERENCES expo_empresa(empresa_id)
+);
+
+CREATE TABLE expo_empresa_producto (
+  producto_id int(11) PRIMARY KEY AUTO_INCREMENT,
+  producto_nombre varchar(255) DEFAULT NULL,
+  producto_categoria varchar(50) DEFAULT NULL,
+  producto_stock int(11) DEFAULT NULL,
+  producto_precio DECIMAL(10,2) DEFAULT NULL,
+  producto_moneda varchar(50) DEFAULT NULL,
+  producto_estado varchar(50) DEFAULT NULL,
+  empresa_id int(11) NOT NULL,
+  FOREIGN KEY (empresa_id) REFERENCES expo_empresa(empresa_id)
+);
