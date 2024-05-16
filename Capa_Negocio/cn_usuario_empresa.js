@@ -5,8 +5,9 @@ var objCapaDato = new CD_UsuarioEmpresa();
 class CN_UsuarioEmpresa {
 
     //CREATE
-    async createUsuarioEmpresa() {
-        return await objCapaDato.createUsuarioEmpresa();
+    async createUsuarioEmpresa(data) {
+        const objCapaDatos = new CD_UsuarioEmpresa();
+        return await objCapaDatos.createUsuarioEmpresa(data);
     }
 
     //READ GENERAL
@@ -15,18 +16,19 @@ class CN_UsuarioEmpresa {
     }
 
     //READ ID
-    async getUsuarioEmpresa() {
-        return await objCapaDato.getUsuarioEmpresa();
+    async getUsuarioEmpresa(id) {
+        const objCapaDatos = new CD_UsuarioEmpresa();
+        return await objCapaDatos.getUsuarioEmpresa(id);
     }
 
     //UPDATE 
-    async updateUsuarioEmpresa() {
-        return await objCapaDato.updateUsuarioEmpresa();
+    async updateUsuarioEmpresa(id,data) {
+        return await objCapaDato.updateUsuarioEmpresa(id,data);
     }
 
     //DELETE 
-    async deleteUsuarioEmpresa() {
-        return await objCapaDato.deleteUsuarioEmpresa();
+    async deleteUsuarioEmpresa(id) {
+        return await objCapaDato.deleteUsuarioEmpresa(id);
     }
 }
 

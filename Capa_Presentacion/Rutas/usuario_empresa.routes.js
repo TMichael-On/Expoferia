@@ -1,16 +1,19 @@
 import { Router } from "express";
-import { createUsuarioEmpresa, deleteUsuarioEmpresa, getUsuarioEmpresa, getUsuarioEmpresas, updateUsuarioEmpresa } from "../Controladores/usuario_empresa.controller";
+import { createUsuarioEmpresa, deleteUsuarioEmpresa, getUsuarioEmpresa, getUsuarioEmpresas, prueba, updateUsuarioEmpresa } from "../Controladores/usuario_empresa.controller.js";
 
 const router = Router();
 //CREATE
-router.post("/usuario-empresa", createUsuarioEmpresa);
+router.post("/create", createUsuarioEmpresa);
 //GET GENERAL
-router.get("/usuario-empresas", getUsuarioEmpresas);
+router.get("", getUsuarioEmpresas);
 //GET ID
-router.post("/usuario-empresa", getUsuarioEmpresa);
+router.get("/:id", getUsuarioEmpresa);
 //UPDATE
-router.patch("/usuario-empresa",updateUsuarioEmpresa);
+router.patch("/:id",updateUsuarioEmpresa);
 //DELETE
-router.delete("/usuario-empresa",deleteUsuarioEmpresa);
+router.delete("/:id",deleteUsuarioEmpresa);
+
+//PRUEBA
+router.get("/prueba", prueba);
 
 export default router;
