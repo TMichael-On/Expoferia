@@ -16,7 +16,7 @@ class CD_EmpresaProducto {
         message = "Producto "+data.nombre+" ya existente";
       } else {
         const [result] = await pool.query(
-          "INSERT INTO expo_empresa_producto (producto_nombre , producto_categoria, producto_stock, producto_precio, producto_moneda,, producto_estado, empresa_id) VALUES (?,?,?,?,?,?)",
+          "INSERT INTO expo_empresa_producto (producto_nombre , producto_categoria, producto_stock, producto_precio, producto_moneda, producto_estado, empresa_id) VALUES (?,?,?,?,?,'1',?)",
           [
             data.nombre ,
             data.categoria,
