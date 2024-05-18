@@ -11,7 +11,7 @@ class CN_EmpresaProducto {
 
     //READ GENERAL
     async getEmpresaProductos() {
-        return await objCapaDato.getEmpresasproducto();
+        return await objCapaDato.getEmpresaProductos();
     }
 
     //READ ID
