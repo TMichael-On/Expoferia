@@ -1,4 +1,5 @@
 import CN_EmpresaColaborador from "../../Capa_Negocio/cn_empresa_colaborador.js";
+import { EmpresaColaboradorDto } from "./empresa_colaborador.dto.js";
 
 // CREATE - Capa de Presentación
 export const createEmpresaColaborador = async (req, res) => {
@@ -16,7 +17,13 @@ export const getEmpresasRedes = async (req, res) => {
     const objCapaEmpresaColaborador = new CN_EmpresaColaborador();
     try {
       const result = await objCapaEmpresaColaborador.getEmpresaColaboradores();
-      res.json(result);
+      if (result.rows.length > 0) {
+        const formattedRows = result.rows.map(row => new EmpresaColaboradorDto(row));
+        res.json({ message: result.message, row: formattedRows });
+    } else {
+        res.json({ message: result.message, row: [] });
+    }
+      // res.json(result.rows);
     } catch (error) {
       return res.status(500).json({ message: "Algo error ocurrio en CP: "+error.message });
     }
@@ -27,7 +34,13 @@ export const getEmpresaColaborador = async (req, res) => {
   const objCapaEmpresaColaborador = new CN_EmpresaColaborador();
   try {
       const result = await objCapaEmpresaColaborador.getEmpresaColaborador(req.params.id);
-      res.json(result);
+      if (result.rows.length > 0) {
+        const formattedRows = result.rows.map(row => new EmpresaColaboradorDto(row));
+        res.json({ message: result.message, row: formattedRows });
+    } else {
+        res.json({ message: result.message, row: [] });
+    }
+      // res.json(result.rows);
   } catch (error) {
       return res.status(500).json({ message: "Algo error ocurrio en CP: "+error.message });
   }

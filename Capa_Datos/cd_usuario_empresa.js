@@ -31,7 +31,7 @@ class CD_UsuarioEmpresa {
       message = "Algo salió mal en CD: "+error.message;
       rows = [];
     }
-    return { message, rows };
+    return { message: message, rows: rows };
   }
 
   //READ GENERAL
@@ -51,24 +51,21 @@ class CD_UsuarioEmpresa {
   //READ ID
   async getUsuarioEmpresa(id) {
     let message = "";
-    let row;
+    let rows;
     try {
-      const [results] = await pool.query(
+      [rows]  = await pool.query(
         "SELECT * FROM expo_usuario_empresa WHERE usuario_id = ?",
         [id]
       );
-      row = results[0];
-      if (row) {
-        message = "success";
-      } else {
-        message = "Usuario no encontrado";
-        row = {};
+      message = "success";
+      if (rows.length==0) {
+        message = "Empresa no encontrada";
       }
     } catch (error) {
       message = "Algo salió mal en CD: "+error.message;
-      row = {};
+      rows = [];
     }
-    return { message, row };
+    return { message: message, rows: rows };
   }
 
   //UPDATE
@@ -117,12 +114,12 @@ class CD_UsuarioEmpresa {
         message = "success";
       } else {
         message = "Usuario no encontrado";
-        return { message, rows: {} };
+        return { message: message, rows: rows };
       }
       return { message, rows };
     } catch (error) {
       const message = "Algo salió mal en CD: " + error.message;
-      return { message, rows: [] };
+      return { message: message, rows: rows };
     }
   }
 

@@ -36,7 +36,7 @@ class CD_Empresa {
       message = "Algo salió mal en CD: "+error.message;
       rows = [];
     }
-    return { message, rows };
+    return { message: message, rows: rows };
   }
   
   //READ GENERAL
@@ -56,24 +56,20 @@ class CD_Empresa {
   //READ ID
   async getEmpresa(id) {
     let message = "";
-    let row;
+    let rows=[];
     try {
-      const [results] = await pool.query(
+      [rows] = await pool.query(
         "SELECT * FROM expo_empresa WHERE empresa_id = ?",
         [id]
       );
-      row = results[0];
-      if (row) {
-        message = "success";
-      } else {
+      message = "success";
+      if (rows.length==0) {
         message = "Empresa no encontrada";
-        row = {};
       }
     } catch (error) {
       message = "Algo salió mal en CD: "+error.message;
-      row = {};
     }
-    return { message, row };
+    return { message: message, rows: rows };
   }
   
   //UPDATE
@@ -135,12 +131,12 @@ class CD_Empresa {
         message = "success";
       } else {
         message = "Empresa no encontrada";
-        return { message, rows: {} };
+        return { message: message, rows: rows };
       }
-      return { message, rows };
+      return { message: message, rows: rows };
     } catch (error) {
       const message = "Algo salió mal en CD: " + error.message;
-      return { message, rows: [] };
+    return { message: message, rows: rows };
     }
   }
 

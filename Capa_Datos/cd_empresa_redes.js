@@ -1,7 +1,6 @@
 import { pool } from "./Conexion DB/conection-db.js";
 
 class CD_EmpresaRedes {
-  
   //CREATE
   async createEmpresaRedes(data) {
     let message = "";
@@ -9,30 +8,26 @@ class CD_EmpresaRedes {
     try {
       const [results] = await pool.query(
         "SELECT * FROM expo_empresa_redes WHERE redes_url  = ?",
-        [data.url, ]
+        [data.url]
       );
       rows = results[0];
       if (rows) {
-        message = "Red "+data.nombre+" ya existente";
+        message = "Red " + data.nombre + " ya existente";
       } else {
         const [result] = await pool.query(
           "INSERT INTO expo_empresa_redes (redes_nombre , redes_url, empresa_id) VALUES (?,?,?)",
-          [
-            data.nombre ,
-            data.url,
-            data.empresa_id
-          ]
+          [data.nombre, data.url, data.empresa_id]
         );
         rows = result;
         message = "success";
       }
     } catch (error) {
-      message = "Algo salió mal en CD: "+error.message;
+      message = "Algo salió mal en CD: " + error.message;
       rows = [];
     }
-    return { message, rows };
+    return { message: message, rows: rows };
   }
-  
+
   //READ GENERAL
   async getEmpresasRedes() {
     let message = "";
@@ -41,38 +36,37 @@ class CD_EmpresaRedes {
       [rows] = await pool.query("SELECT * FROM expo_empresa_redes");
       message = "success";
     } catch (error) {
-      message = "Algo salió mal en CD: "+error.message;
+      message = "Algo salió mal en CD: " + error.message;
       rows = [];
     }
     return { message: message, rows: rows };
   }
-  
+
   //READ ID
   async getEmpresaRedes(id) {
     let message = "";
-    let row;
+    let rows=[];
     try {
-      const [results] = await pool.query(
+      rows = await pool.query(
         "SELECT * FROM expo_empresa_redes WHERE redes_id = ?",
         [id]
       );
-      row = results[0];
-      if (row) {
-        message = "success";
-      } else {
+      message = "success";
+      if (rows.length>0){
         message = "Redes no encontradas";
-        row = {};
       }
     } catch (error) {
-      message = "Algo salió mal en CD: "+error.message;
-      row = {};
+      message = "Algo salió mal en CD: " + error.message;
+      rows = {};
     }
-    return { message, row };
+    return { message: message, rows: rows };
   }
-  
+
   //UPDATE
   async updateEmpresaRedes(id, data) {
     let sql = "UPDATE expo_empresa_redes SET ";
+    let message = "";
+    let rows;
     const params = [];
     const updates = [];
     if (data.nombre !== undefined) {
@@ -88,10 +82,8 @@ class CD_EmpresaRedes {
       params.push(data.empresa_id);
     }
     if (updates.length === 0) {
-      return {
-        message: "No se proporcionaron datos para actualizar.",
-        rows: {},
-      };
+      message: "No se proporcionaron datos para actualizar.";
+      rows: [];
     }
 
     sql += updates.join(", ");
@@ -99,22 +91,20 @@ class CD_EmpresaRedes {
     params.push(id);
 
     try {
-      const [rows] = await pool.query(sql, params);
-      let message = "";
+      [rows] = await pool.query(sql, params);
       if (rows.affectedRows === 1) {
         message = "success";
       } else {
         message = "Redes no encontradas";
         return { message, rows: {} };
       }
-      return { message, rows };
+      return { message: message, rows: rows };
     } catch (error) {
       const message = "Algo salió mal en CD: :+error.message " + error.message;
-      return { message, rows: [] };
+      return { message: message, rows: rows };
     }
   }
 
-  
   //DELETE
   async deleteEmpresaRedes(id) {
     let message = "";
@@ -131,7 +121,7 @@ class CD_EmpresaRedes {
         rows = {};
       }
     } catch (error) {
-      message = "Algo salió mal en CD: "+error.message;
+      message = "Algo salió mal en CD: " + error.message;
       rows = [];
     }
     return { message: message, rows: rows };
